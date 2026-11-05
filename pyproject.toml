@@ -1,0 +1,9 @@
+[project]
+name = "generate-numbers"
+version = "0.1.0"
+description = "Generates a random sequence of numbers and math operations inbetween them"
+readme = "README.md"
+requires-python = ">=3.15"
+dependencies = [
+    "pyperclip>=1.11.0",
+]
