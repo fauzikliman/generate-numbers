@@ -2,13 +2,6 @@ import random
 import pyperclip
 import constants
 
-from datetime import datetime
-
-def generate_timestamp_string():
-    local_dt = datetime.now().astimezone()
-    timestamp = local_dt.strftime("%Y-%m-%d %I:%M:%S%p").lower()
-
-    return timestamp
 
 def generate_integer_string():
     num_len = random.randint(1, constants.MAX_DIGIT_LENGTH)
@@ -81,9 +74,6 @@ def main():
         output += num_str
 
     output = output[:len(output) - 1]
-    timestamp = generate_timestamp_string()
-
-    print(timestamp)
     print(output)
     pyperclip.copy(output)
     
