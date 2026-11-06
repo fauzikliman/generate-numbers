@@ -2,13 +2,6 @@ import random
 import pyperclip
 import constants
 
-from datetime import datetime
-
-def generate_timestamp_string():
-    local_dt = datetime.now().astimezone()
-    timestamp = local_dt.strftime("%Y-%m-%d %I:%M:%S%p").lower()
-
-    return timestamp
 
 def generate_integer_string():
     num_len = random.randint(1, constants.MAX_DIGIT_LENGTH)
@@ -18,17 +11,6 @@ def generate_integer_string():
         num_str += str(random.randint(0, 9))
 
     return num_str
-
-def format_integer_string_with_commas(num_str):
-    formatted_num = ""
-
-    for i in range(len(num_str)):
-        formatted_num += num_str[len(num_str) - i - 1]
-
-        if i < len(num_str) - 1 and (i + 1) % 3 == 0:
-            formatted_num += ','
-
-    return formatted_num[:: -1]
 
 def generate_random_number_string():
     num_str = generate_integer_string()
@@ -43,13 +25,13 @@ def generate_random_number_string():
 
     # Format with commas
     if len(num_str) > 3 and random.randint(1, 100) <= constants.PERCENTAGE_COMMAS:
+        parse_number = int
         decimal_index = num_str.find('.')
 
         if decimal_index > -1:
-            num_str = format_integer_string_with_commas(num_str[:decimal_index]) + num_str[decimal_index:]
+            parse_number = float
 
-        else:
-            num_str = format_integer_string_with_commas(num_str)
+        num_str = f"{parse_number(num_str):,}"
 
     # Add negative sign
     if random.randint(1, 100) <= constants.PERCENTAGE_NEGATIVE:
@@ -70,8 +52,7 @@ def main():
 
         # Add math operators
         if consecutive_ops_count < constants.MAX_CONSECUTIVE_OPERATIONS and random.randint(1, 100) <= constants.PERCENTAGE_OPERATIONS:
-            ops_list = "-+/*^"
-            num_str += ops_list[random.randint(0, len(ops_list) - 1)]
+            num_str += random.choice("-+/*^")
             consecutive_ops_count += 1
 
         else:
@@ -80,15 +61,8 @@ def main():
 
         output += num_str
 
-    output = output[:len(output) - 1]
-    timestamp = generate_timestamp_string()
-
-    print(timestamp)
+    output = output[:-1]
     print(output)
-
-    with open("output.txt", 'a', encoding="utf-8") as file:
-        file.write(f"\n\n{timestamp}\n{output}")
-
     pyperclip.copy(output)
     
 if __name__ == "__main__":
