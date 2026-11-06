@@ -12,17 +12,6 @@ def generate_integer_string():
 
     return num_str
 
-def format_integer_string_with_commas(num_str):
-    formatted_num = ""
-
-    for i in range(len(num_str)):
-        formatted_num += num_str[len(num_str) - i - 1]
-
-        if i < len(num_str) - 1 and (i + 1) % 3 == 0:
-            formatted_num += ','
-
-    return formatted_num[:: -1]
-
 def generate_random_number_string():
     num_str = generate_integer_string()
 
@@ -36,13 +25,13 @@ def generate_random_number_string():
 
     # Format with commas
     if len(num_str) > 3 and random.randint(1, 100) <= constants.PERCENTAGE_COMMAS:
+        parse_number = int
         decimal_index = num_str.find('.')
 
         if decimal_index > -1:
-            num_str = format_integer_string_with_commas(num_str[:decimal_index]) + num_str[decimal_index:]
+            parse_number = float
 
-        else:
-            num_str = format_integer_string_with_commas(num_str)
+        num_str = f"{parse_number(num_str):,}"
 
     # Add negative sign
     if random.randint(1, 100) <= constants.PERCENTAGE_NEGATIVE:
