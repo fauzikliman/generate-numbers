@@ -73,7 +73,7 @@ def main():
 
         output += num_str
 
-    output = output[:len(output) - 1]
+    output = output[:-1]
     print(output)
     pyperclip.copy(output)
     
