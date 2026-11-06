@@ -63,8 +63,7 @@ def main():
 
         # Add math operators
         if consecutive_ops_count < constants.MAX_CONSECUTIVE_OPERATIONS and random.randint(1, 100) <= constants.PERCENTAGE_OPERATIONS:
-            ops_list = "-+/*^"
-            num_str += ops_list[random.randint(0, len(ops_list) - 1)]
+            num_str += random.choice("-+/*^")
             consecutive_ops_count += 1
 
         else:
