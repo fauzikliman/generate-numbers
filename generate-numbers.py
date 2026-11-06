@@ -85,10 +85,6 @@ def main():
 
     print(timestamp)
     print(output)
-
-    with open("output.txt", 'a', encoding="utf-8") as file:
-        file.write(f"\n\n{timestamp}\n{output}")
-
     pyperclip.copy(output)
     
 if __name__ == "__main__":
