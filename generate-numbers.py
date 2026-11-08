@@ -2,18 +2,9 @@ import random
 import pyperclip
 import constants
 
-
-def generate_integer_string():
-    num_len = random.randint(1, constants.MAX_DIGIT_LENGTH)
-    num_str = ""
-
-    for _ in range(num_len):
-        num_str += str(random.randint(0, 9))
-
-    return num_str
-
 def generate_random_number_string():
-    num_str = generate_integer_string()
+    num_len = random.randint(1, constants.MAX_DIGIT_LENGTH)
+    num_str = "".join([str(random.randint(0, 9)) for _ in range(num_len)])
 
     # Insert decimal point
     if len(num_str) > 1 and random.randint(1, 100) <= constants.PERCENTAGE_DECIMAL_POINT:
