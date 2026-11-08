@@ -17,9 +17,8 @@ def generate_random_number_string():
     # Format with commas
     if len(num_str) > 3 and random.randint(1, 100) <= constants.PERCENTAGE_COMMAS:
         parse_number = int
-        decimal_index = num_str.find('.')
 
-        if decimal_index > -1:
+        if num_str.find('.') > -1:
             parse_number = float
 
         num_str = f"{parse_number(num_str):,}"
