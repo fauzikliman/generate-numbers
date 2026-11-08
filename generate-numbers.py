@@ -8,10 +8,10 @@ def generate_random_number_string():
 
     # Insert decimal point
     if len(num_str) > 1 and random.randint(1, 100) <= constants.PERCENTAGE_DECIMAL_POINT:
-        decimal_index = random.randint(0, len(num_str) - 2)
+        decimal_index = random.randint(1, len(num_str) - 1)
 
-        beg_str = num_str[:decimal_index + 1]
-        end_str = num_str[decimal_index + 1:]
+        beg_str = num_str[:decimal_index]
+        end_str = num_str[decimal_index:]
         num_str = f"{beg_str}.{end_str}"
 
     # Format with commas
