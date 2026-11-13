@@ -2,56 +2,92 @@ import random
 import pyperclip
 import constants
 
-def generate_random_number_string():
+# Return string of integers
+def generate_integer_string():
     num_len = random.randint(1, constants.MAX_DIGIT_LENGTH)
-    num_str = "".join([str(random.randint(0, 9)) for _ in range(num_len)])
+    
+    return "".join([str(random.randint(0, 9)) for _ in range(num_len)])
 
-    # Insert decimal point
-    if len(num_str) > 1 and random.randint(1, 100) <= constants.PERCENTAGE_DECIMAL_POINT:
-        decimal_index = random.randint(1, len(num_str) - 1)
+# Input number must be string of integers
+def format_with_decimal_point(num_str):
+    if len(num_str) < 2:
+        return num_str
+    
+    decimal_index = random.randint(1, len(num_str) - 1)
+    beg_str = num_str[:decimal_index]
+    end_str = num_str[decimal_index:]
 
-        beg_str = num_str[:decimal_index]
-        end_str = num_str[decimal_index:]
-        num_str = f"{beg_str}.{end_str}"
+    return f"{beg_str}.{end_str}"
 
-    # Format with commas
-    if len(num_str) > 3 and random.randint(1, 100) <= constants.PERCENTAGE_COMMAS:
-        parse_number = int
+# Input number must be string of integers
+def format_with_single_delimiter(num_str, single_delimiter):
+    if len(num_str) < 4:
+        return num_str
+    
+    tokens = []
+    beg_index = len(num_str) % 3
 
-        if num_str.find('.') > -1:
-            parse_number = float
+    if beg_index > 0:
+        tokens.append(num_str[:beg_index])
 
-        num_str = f"{parse_number(num_str):,}"
+    while beg_index < len(num_str):
+        tokens.append(num_str[beg_index : beg_index + 3])
+        beg_index += 3
 
-    # Add negative sign
-    if random.randint(1, 100) <= constants.PERCENTAGE_NEGATIVE:
+    return single_delimiter.join(tokens)
+
+def format_with_paired_delimiter(num_str, paired_delimiter):
+    return paired_delimiter[0] + num_str + paired_delimiter[1]
+
+def generate_random_number_string():
+    num_str = generate_integer_string()
+
+    # Format with decimal point
+    if random.randint(1, 100) <= constants.PERCENTAGE_DECIMAL_POINT:
+        num_str = format_with_decimal_point(num_str)
+
+    # Format with single delimiter
+    if random.randint(1, 100) <= constants.PERCENTAGE_SINGLE_DELIMITER:
+        decimal_index = num_str.find('.')
+        beg_str = ""
+        end_str = ""
+
+        if decimal_index > -1:
+            beg_str = num_str[:decimal_index]
+            end_str = num_str[decimal_index:]
+
+        else:
+            beg_str = num_str
+
+        num_str = format_with_single_delimiter(beg_str, random.choice(constants.SINGLE_DELIMITERS)) + end_str
+
+    # Prefix with negative sign
+    if random.randint(1, 100) <= constants.PERCENTAGE_NEGATIVE_NUMBER:
         num_str = '-' + num_str
+
+    # Prefix with unary operator
+    if random.randint(1, 100) <= constants.PERCENTAGE_UNARY_OPERATOR:
+        num_str = random.choice(constants.UNARY_OPERATORS) + num_str
+
+    # Format with paired delimiter
+    if random.randint(1, 100) <= constants.PERCENTAGE_PAIRED_DELIMITER:
+        num_str = format_with_paired_delimiter(num_str, random.choice(constants.PAIRED_DELIMITERS))
 
     return num_str
 
 def main():
-    consecutive_ops_count = 0
-    output = ""
+    output_tokens = []
 
-    for _ in range(constants.NUMBER_COUNT):
-        num_str = generate_random_number_string()
+    for _ in range(constants.WORD_COUNT):
+        token = generate_random_number_string()
 
-        # Add parentheses
-        if random.randint(1, 100) <= constants.PERCENTAGE_PARENTHESES:
-            num_str = f"({num_str})"
+        # Add binary operator
+        if random.randint(1, 100) <= constants.PERCENTAGE_BINARY_OPERATOR:
+            token += random.choice(constants.BINARY_OPERATORS) + generate_random_number_string()
 
-        # Add math operators
-        if consecutive_ops_count < constants.MAX_CONSECUTIVE_OPERATIONS and random.randint(1, 100) <= constants.PERCENTAGE_OPERATIONS:
-            num_str += random.choice("-+/*^")
-            consecutive_ops_count += 1
+        output_tokens.append(token)
 
-        else:
-            num_str += ' '
-            consecutive_ops_count = 0
-
-        output += num_str
-
-    output = output[:-1]
+    output = " ".join(output_tokens)
     print(output)
     pyperclip.copy(output)
     
