@@ -20,6 +20,7 @@ PERCENTAGE_PAIRED_DELIMITER = cfg_get_int("PERCENTAGE_PAIRED_DELIMITER", 30)
 PERCENTAGE_UNARY_OPERATOR = cfg_get_int("PERCENTAGE_UNARY_OPERATOR", 30)
 PERCENTAGE_BINARY_OPERATOR = cfg_get_int("PERCENTAGE_BINARY_OPERATOR", 30)
 
+DIGITS = cfg_get_string("DIGITS", "0123456789")
 SINGLE_DELIMITERS = cfg_get_string("SINGLE_DELIMITERS", ",._:")
 PAIRED_DELIMITERS = cfg_get_string("PAIRED_DELIMITERS", "(),[],{},\\,//,``,__").split(",")
 UNARY_OPERATORS = cfg_get_string("UNARY_OPERATORS", "@,#,$,++,--,!,~,&,*").split(",")

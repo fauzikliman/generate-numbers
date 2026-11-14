@@ -6,7 +6,7 @@ import constants
 def generate_integer_string():
     num_len = random.randint(1, constants.MAX_DIGIT_LENGTH)
     
-    return "".join([str(random.randint(0, 9)) for _ in range(num_len)])
+    return "".join(random.choices(constants.DIGITS, k=num_len))
 
 # Input number must be string of integers
 def format_with_decimal_point(num_str):
