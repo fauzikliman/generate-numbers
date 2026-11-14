@@ -10,7 +10,7 @@ def cfg_get_string(variable_name, default_name):
     return cfg.get(configparser.UNNAMED_SECTION, variable_name, fallback=default_name)
 
 WORD_COUNT = cfg_get_int("WORD_COUNT", 50)
-MAX_DIGIT_LENGTH = cfg_get_int("MAX_DIGIT_LENGTH", 7)
+MAX_DIGIT_COUNT = cfg_get_int("MAX_DIGIT_COUNT", 7)
 
 PERCENTAGE_NEGATIVE_NUMBER = cfg_get_int("PERCENTAGE_NEGATIVE_NUMBER", 20)
 PERCENTAGE_DECIMAL_POINT = cfg_get_int("PERCENTAGE_DECIMAL_POINT", 25)
