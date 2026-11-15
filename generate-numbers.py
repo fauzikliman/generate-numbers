@@ -13,10 +13,10 @@ def format_with_decimal_point(num_str):
         return num_str
     
     decimal_index = random.randint(1, len(num_str) - 1)
-    beg_str = num_str[:decimal_index]
-    end_str = num_str[decimal_index:]
+    integer_part = num_str[:decimal_index]
+    fractional_part = num_str[decimal_index:]
 
-    return f"{beg_str}.{end_str}"
+    return f"{integer_part}.{fractional_part}"
 
 # Input number must be string of integers
 def format_with_single_delimiter(num_str, single_delimiter, interval):
