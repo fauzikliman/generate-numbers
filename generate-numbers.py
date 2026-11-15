@@ -4,8 +4,7 @@ import constants
 
 # Return string of integers
 def generate_integer_string():
-    digit_count = random.randint(1, constants.MAX_DIGIT_COUNT)
-    
+    digit_count = random.randint(constants.MIN_DIGIT_COUNT, constants.MAX_DIGIT_COUNT)
     return "".join(random.choices(constants.DIGITS, k=digit_count))
 
 # Input number must be string of integers

@@ -14,6 +14,7 @@ def to_int_list(comma_separated_string):
     return [int(string) for string in string_list]
 
 WORD_COUNT = cfg_get_int("WORD_COUNT", 50)
+MIN_DIGIT_COUNT = cfg_get_int("MIN_DIGIT_COUNT", 2)
 MAX_DIGIT_COUNT = cfg_get_int("MAX_DIGIT_COUNT", 7)
 
 PERCENTAGE_NEGATIVE_NUMBER = cfg_get_int("PERCENTAGE_NEGATIVE_NUMBER", 20)

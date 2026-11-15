@@ -28,6 +28,7 @@ Customize text generation via config variables in a user-created `settings.cfg` 
 
 ```
 WORD_COUNT=50
+MIN_DIGIT_COUNT=2
 MAX_DIGIT_COUNT=7
 
 PERCENTAGE_NEGATIVE_NUMBER=20
