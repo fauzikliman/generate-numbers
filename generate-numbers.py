@@ -20,19 +20,19 @@ def format_with_decimal_point(num_str):
     return f"{beg_str}.{end_str}"
 
 # Input number must be string of integers
-def format_with_single_delimiter(num_str, single_delimiter):
-    if len(num_str) < 4:
+def format_with_single_delimiter(num_str, single_delimiter, interval):
+    if len(num_str) < interval + 1:
         return num_str
     
     tokens = []
-    beg_index = len(num_str) % 3
+    beg_index = len(num_str) % interval
 
     if beg_index > 0:
         tokens.append(num_str[:beg_index])
 
     while beg_index < len(num_str):
-        tokens.append(num_str[beg_index : beg_index + 3])
-        beg_index += 3
+        tokens.append(num_str[beg_index : beg_index + interval])
+        beg_index += interval
 
     return single_delimiter.join(tokens)
 
@@ -48,18 +48,17 @@ def generate_random_number_string():
 
     # Format with single delimiter
     if random.randint(1, 100) <= constants.PERCENTAGE_SINGLE_DELIMITER:
+        integer_part = num_str
+        fractional_part = ""
         decimal_index = num_str.find('.')
-        beg_str = ""
-        end_str = ""
 
         if decimal_index > -1:
-            beg_str = num_str[:decimal_index]
-            end_str = num_str[decimal_index:]
+            integer_part = num_str[:decimal_index]
+            fractional_part = num_str[decimal_index:]
 
-        else:
-            beg_str = num_str
-
-        num_str = format_with_single_delimiter(beg_str, random.choice(constants.SINGLE_DELIMITERS)) + end_str
+        single_delimiter = random.choice(constants.SINGLE_DELIMITERS)
+        interval = random.choice(constants.SINGLE_DELIMITERS_INTERVALS)
+        num_str = format_with_single_delimiter(integer_part, single_delimiter, interval) + fractional_part
 
     # Prefix with negative sign
     if random.randint(1, 100) <= constants.PERCENTAGE_NEGATIVE_NUMBER:
